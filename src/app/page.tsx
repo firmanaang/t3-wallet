@@ -41,7 +41,6 @@ export default async function Home() {
                   Connect your wallet to get started
                 </p>
               )}
-              <appkit-button>
             </div>
           </div>
 
