@@ -3,7 +3,7 @@ import Link from "next/link";
 import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
-import WagmiLoginButton from '~/app/_components/wagmiLoginButton'
+
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -41,7 +41,7 @@ export default async function Home() {
                   Connect your wallet to get started
                 </p>
               )}
-              <WagmiLoginButton />
+              <appkit-button>
             </div>
           </div>
 

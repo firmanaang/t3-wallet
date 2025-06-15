@@ -20,10 +20,14 @@ const geist = Geist({
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+
+  const headersObj = await headers();
+  const cookies = headersObj.get('cookie')
+
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <ContextProvider>
+        <ContextProvider cookies={cookies}>
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </ContextProvider>
       </body>
