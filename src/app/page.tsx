@@ -15,25 +15,45 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-            Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-          </h1>
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-2xl text-white">
+      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+        <div className="container mx-auto px-4 py-16">
+          {/* Hero Section */}
+          <div className="mb-16 text-center">
+            <h1 className="mb-4 text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Welcome to <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">T3 App</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300">
               {hello ? hello.greeting : "Loading tRPC query..."}
             </p>
+          </div>
 
-            <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {session && <span>Logged in as {session.user?.name}</span>}
-              </p>
+          {/* Auth Section */}
+          <div className="mx-auto mb-16 max-w-md rounded-2xl bg-white/5 p-8 backdrop-blur-sm">
+            <div className="text-center">
+              {session?.user ? (
+                <div className="mb-6">
+                  <p className="text-xl font-medium text-white">
+                    Welcome back, <span className="text-purple-400">{session.user.name}</span>
+                  </p>
+                </div>
+              ) : (
+                <p className="mb-6 text-lg text-gray-300">
+                  Connect your wallet to get started
+                </p>
+              )}
               <WagmiLoginButton />
             </div>
           </div>
 
-          {session?.user && <LatestPost />}
+          {/* Posts Section */}
+          {session?.user && (
+            <div className="mx-auto max-w-2xl rounded-2xl bg-white/5 p-8 backdrop-blur-sm">
+              <h2 className="mb-8 text-center text-2xl font-semibold text-white">
+                Your Posts
+              </h2>
+              <LatestPost />
+            </div>
+          )}
         </div>
       </main>
     </HydrateClient>
