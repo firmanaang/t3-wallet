@@ -3,6 +3,8 @@ import Link from "next/link";
 import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
+import WagmiLoginButton from "./_components/wagmiLoginButton";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 
 
 export default async function Home() {
@@ -12,6 +14,10 @@ export default async function Home() {
   if (session?.user) {
     void api.post.getLatest.prefetch();
   }
+
+  export default function ConnectButton() {
+  return <appkit-button />
+}
 
   return (
     <HydrateClient>
@@ -43,16 +49,7 @@ export default async function Home() {
               )}
             </div>
           </div>
-
-          {/* Posts Section */}
-          {session?.user && (
-            <div className="mx-auto max-w-2xl rounded-2xl bg-white/5 p-8 backdrop-blur-sm">
-              <h2 className="mb-8 text-center text-2xl font-semibold text-white">
-                Your Posts
-              </h2>
-              <LatestPost />
-            </div>
-          )}
+              <ConnectButton />
         </div>
       </main>
     </HydrateClient>
