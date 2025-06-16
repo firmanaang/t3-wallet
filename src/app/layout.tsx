@@ -4,7 +4,8 @@ import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import ContextProvider from "./context";
+import { Providers } from "./_components/Providers";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -17,17 +18,17 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-
-
+  const cookieData = (await cookies()).toString();
+  
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
-        <ContextProvider >
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </ContextProvider>
+        <TRPCReactProvider>
+          <Providers cookies={cookieData}>{children}</Providers>
+        </TRPCReactProvider>
       </body>
     </html>
   );

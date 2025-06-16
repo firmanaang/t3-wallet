@@ -1,11 +1,8 @@
-import Link from "next/link";
-
 import { LatestPost } from "~/app/_components/post";
 import { auth } from "~/server/auth";
 import { api, HydrateClient } from "~/trpc/server";
-import WagmiLoginButton from "./_components/wagmiLoginButton";
-import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-
+import ConnectButton from "./_components/ConnectButton";
+import SIWELoginButton from "./_components/SiweLoginButton";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
@@ -14,10 +11,6 @@ export default async function Home() {
   if (session?.user) {
     void api.post.getLatest.prefetch();
   }
-
-  export default function ConnectButton() {
-  return <appkit-button />
-}
 
   return (
     <HydrateClient>
@@ -47,9 +40,10 @@ export default async function Home() {
                   Connect your wallet to get started
                 </p>
               )}
+              <ConnectButton />
+              <SIWELoginButton></SIWELoginButton>
             </div>
           </div>
-              <ConnectButton />
         </div>
       </main>
     </HydrateClient>
